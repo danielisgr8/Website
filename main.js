@@ -179,15 +179,15 @@ $(document).ready(function() {
 	for(var i = 0; i < cat.length; i++) {
 		if(cat[i] == "R") {
 			boxes[i].color = "red";
-			if($(# + (i + 1)).hasClass("blue")) {
-				$(# + (i + 1)).removeClass("blue");
-				$(# + (i + 1)).addClass("red");
+			if($("#" + (i + 1)).hasClass("blue")) {
+				$("#" + (i + 1)).removeClass("blue");
+				$("#" + (i + 1)).addClass("red");
 			}
 		} else if(cat[i] == "B") {
 			boxes[i].color = "blue";
-			if($(# + (i + 1)).hasClass("red")) {
-				$(# + (i + 1)).removeClass("red");
-				$(# + (i + 1)).addClass("blue");
+			if($("#" + (i + 1)).hasClass("red")) {
+				$("#" + (i + 1)).removeClass("red");
+				$("#" + (i + 1)).addClass("blue");
 			}	
 		}
 	}
