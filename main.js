@@ -165,9 +165,9 @@ $(document).ready(function() {
 	if(localStorage.getItem("cat") == null) {
 		var cat = "";
 		for(var i = 0; i < boxes.length; i++) {
-			if(boxes[i].color = "red") {
+			if(boxes[i].color == "red") {
 				cat += "R";
-			} else if(boxes[i].color = "blue") {
+			} else if(boxes[i].color == "blue") {
 				cat += "B";
 			}
 		}
