@@ -205,7 +205,11 @@ $(document).ready(function() {
 	});*/
 	console.log(localStorage.getItem("cat"));
 });
-
+/*
+TODO
+[] use localstorage for money/attack also
+[] option to generate new map
+*/
 /* IDEAS
 Click button to increase health of boxes (get some other currency in return?)
 Somehow differentiate health and width since they'll eventually have different values
