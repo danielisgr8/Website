@@ -20,17 +20,6 @@ $(document).ready(function() {
 		this.description = description;
 		this.cost = cost;
 		this.createUpgrade = function() {
-			/*
-			<div class="upgrade" id="1">
-				<div class="infoHolder">
-					<p class="title">Upgrade 1</p>
-					<p class="description">Description</p>
-				</div>
-				<div class="costHolder">
-					<p class="cost">Cost</p>
-				</div>
-			</div>
-			*/
 			$(".upgradesHolder").append("<div class=\"upgrade\" id=\"" + this.id + "\"></div>");
 			$("#" + this.id + ".upgrade").append("<div class=\"infoHolder\" id=\"" + this.id + "\"></div>");
 			$("#" + this.id + ".infoHolder").append("<p class=\"title\" id=\"" + this.id + "\">" + this.title + "</p>");
@@ -172,8 +161,6 @@ $(document).ready(function() {
 	for(i = 0; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
-
-	/*
 	if(localStorage.getItem("cat") == null) {
 		var cat = 0;
 		console.log("undefined");
@@ -192,7 +179,6 @@ $(document).ready(function() {
 		$(foo).html(localStorage.getItem("cat"));
 	});
 	$(foo).html(localStorage.getItem("cat"));
-	*/
 });
 
 /* IDEAS
