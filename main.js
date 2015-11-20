@@ -41,13 +41,14 @@ $(document).ready(function() {
 		this.onCooldown = false;
 		this.now;
 		this.before;
+		this.color;
 		this.createBox = function() {
 			$(".boxHolder").append("<div class=\"box\" id=\"" + (this.id) + "\"></div>");
-			var color = redOrBlue();
-			$("#" + (this.id)).css("background-color", color);
-			if(color == "red") {
+			this.color = redOrBlue();
+			$("#" + (this.id)).css("background-color", this.color);
+			if(this.color == "red") {
 				$("#" + (this.id)).addClass("red");
-			} else if(color == "blue") {
+			} else if(this.color == "blue") {
 				$("#" + (this.id)).addClass("blue");
 			}
 		}
@@ -137,7 +138,7 @@ $(document).ready(function() {
 			}, 100);
 		}
 	}
-	for(i = 0; i < 192; i++) {
+	for(var i = 0; i < 192; i++) {
 		boxes[i] = new box(i + 1, 10, 1, 10);
 	}
 	$(".box").click(function() {
@@ -158,12 +159,19 @@ $(document).ready(function() {
 	$(".dropDown").click(function() {
 		$(".upgradesHolder").slideToggle();
 	});
-	for(i = 0; i < 10; i++) {
+	for(var i = 0; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
 	if(localStorage.getItem("cat") == null) {
-		var cat = 0;
-		console.log("undefined");
+		var cat = "";
+		for(var i = 0; i < boxes.length; i++) {
+			if(boxes[i].color = "red") {
+				cat += "R";
+			} else if(boxes[i].color = "blue") {
+				cat += "B";
+			}
+		}
+		console.log("created");
 	} else {
 		var cat = localStorage.getItem("cat");
 	}
