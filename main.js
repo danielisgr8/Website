@@ -190,6 +190,7 @@ $(document).ready(function() {
 				$("#" + (i + 1)).addClass("blue");
 			}	
 		}
+		$("#" + (i + 1)).css("background-color", boxes[i].color);
 	}
 	localStorage.setItem("cat", cat);
 	/*$(".add").click(function() {
