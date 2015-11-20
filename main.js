@@ -171,14 +171,14 @@ $(document).ready(function() {
 	$(".add").click(function() {
 		cat++;
 		localStorage.setItem("cat", cat);
-		$(foo).html(localStorage.getItem("cat"));
+		console.log(localStorage.getItem("cat"));
 	});
 	$(".subtract").click(function() {
 		cat--;
 		localStorage.setItem("cat", cat);
-		$(foo).html(localStorage.getItem("cat"));
+		console.log(localStorage.getItem("cat"));
 	});
-	$(foo).html(localStorage.getItem("cat"));
+	console.log(localStorage.getItem("cat"));
 });
 
 /* IDEAS
