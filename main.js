@@ -175,8 +175,24 @@ $(document).ready(function() {
 	} else {
 		var cat = localStorage.getItem("cat");
 	}
+	// change map to localstorage map
+	for(var i = 0; i < cat.length; i++) {
+		if(cat[i] == "R") {
+			boxes[i].color = "red";
+			if($(# + (i + 1)).hasClass("blue")) {
+				$(# + (i + 1)).removeClass("blue");
+				$(# + (i + 1)).addClass("red");
+			}
+		} else if(cat[i] == "B") {
+			boxes[i].color = "blue";
+			if($(# + (i + 1)).hasClass("red")) {
+				$(# + (i + 1)).removeClass("red");
+				$(# + (i + 1)).addClass("blue");
+			}	
+		}
+	}
 	localStorage.setItem("cat", cat);
-	$(".add").click(function() {
+	/*$(".add").click(function() {
 		cat++;
 		localStorage.setItem("cat", cat);
 		console.log(localStorage.getItem("cat"));
@@ -185,7 +201,7 @@ $(document).ready(function() {
 		cat--;
 		localStorage.setItem("cat", cat);
 		console.log(localStorage.getItem("cat"));
-	});
+	});*/
 	console.log(localStorage.getItem("cat"));
 });
 
