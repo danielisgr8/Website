@@ -79,6 +79,8 @@ $(document).ready(function() {
 						$(box).css("border-right-width", 0 + "px");
 						$(box).css("width", 100 + "px");
 						window.clearInterval(me.gainInterval);
+						me.onCooldown = true;
+						me.cooldown();
 					} else {
 						a = a * Math.floor(elapsedTime / 100);
 						$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - a + "px");
@@ -105,7 +107,6 @@ $(document).ready(function() {
 				me.now = new Date();
 				var a = me.cooldownRate;
 				var elapsedTime = (me.now.getTime() - me.before.getTime());
-				me.onCooldown = true;
 				if(elapsedTime > 100) {
 					if(a * Math.floor(elapsedTime / 100) + parseInt($(box).css("border-left-width"), 10) > 100) {
 						$(box).css("border-left-width", 0 + "px");
@@ -146,11 +147,7 @@ $(document).ready(function() {
 		if($(this).attr("class").includes("red") && !boxes[boxId - 1].onCooldown) {
 			boxes[boxId - 1].loseHealth("black");
 			window.clearInterval(boxes[boxId - 1].gainInterval);
-			if(parseInt($(this).css("width"), 10) != 0) {
-				boxes[boxId - 1].gainHealth();
-			} else {
-				boxes[boxId - 1].cooldown();
-			}
+			boxes[boxId - 1].gainHealth();
 		} else if ($(this).attr("class").includes("blue")) {
 			money++;
 			$(".money").html("Money: " + money);
