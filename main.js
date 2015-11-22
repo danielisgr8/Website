@@ -61,9 +61,11 @@ $(document).ready(function() {
 				var borderWidth = parseInt($(box).css("border-right-width"), 10) + this.loseHealthRate;
 				$(box).css("border-right", borderWidth + "px" + " solid " + color);
 				$(box).css("width", width + "px");
-			} else if(parseInt($(box).css("width"), 10) < this.loseHealthRate && parseInt($(box).css("border-right-width"), 10) > (100 - this.loseHealthRate)) {
+			} else if(parseInt($(box).css("width"), 10) < this.loseHealthRate) {
 				$(box).css("border-right", 100 + "px" + " solid " + color);
 				$(box).css("width", 0 + "px");
+				me.onCooldown = true;
+				me.cooldown();
 			}
 		}
 		this.gainHealth = function() {
@@ -79,9 +81,6 @@ $(document).ready(function() {
 						$(box).css("border-right-width", 0 + "px");
 						$(box).css("width", 100 + "px");
 						window.clearInterval(me.gainInterval);
-						console.log("test");
-						me.onCooldown = true;
-						me.cooldown();
 					} else {
 						a = a * Math.floor(elapsedTime / 100);
 						$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - a + "px");
