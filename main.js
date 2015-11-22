@@ -79,6 +79,7 @@ $(document).ready(function() {
 						$(box).css("border-right-width", 0 + "px");
 						$(box).css("width", 100 + "px");
 						window.clearInterval(me.gainInterval);
+						console.log("test");
 						me.onCooldown = true;
 						me.cooldown();
 					} else {
