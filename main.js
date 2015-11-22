@@ -61,7 +61,7 @@ $(document).ready(function() {
 				var borderWidth = parseInt($(box).css("border-right-width"), 10) + this.loseHealthRate;
 				$(box).css("border-right", borderWidth + "px" + " solid " + color);
 				$(box).css("width", width + "px");
-			} else if(parseInt($(box).css("width"), 10) < this.loseHealthRate) {
+			} else if(parseInt($(box).css("width"), 10) < this.loseHealthRate && parseInt($(box).css("border-right-width"), 10) > (100 - this.loseHealthRate)) {
 				$(box).css("border-right", 100 + "px" + " solid " + color);
 				$(box).css("width", 0 + "px");
 				me.onCooldown = true;
