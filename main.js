@@ -147,7 +147,9 @@ $(document).ready(function() {
 		if($(this).attr("class").includes("red") && !boxes[boxId - 1].onCooldown) {
 			boxes[boxId - 1].loseHealth("black");
 			window.clearInterval(boxes[boxId - 1].gainInterval);
-			boxes[boxId - 1].gainHealth();
+			if(parseInt($("#" + boxes[boxId - 1].id).css("width"), 10) != 0) {
+				boxes[boxId - 1].gainHealth();
+			}
 		} else if ($(this).attr("class").includes("blue")) {
 			money++;
 			$(".money").html("Money: " + money);
