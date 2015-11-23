@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var boxes = [];
 	var upgrades = [];
 	var money = 0;
-	$(".money").html("Money: " + money);
+	$(".money").html("Money: $" + money);
 	var attack = 10;
 	$(".attack").html("Attack: " + attack);
 	function redOrBlue() {
@@ -152,7 +152,7 @@ $(document).ready(function() {
 			}
 		} else if ($(this).attr("class").includes("blue")) {
 			money++;
-			$(".money").html("Money: " + money);
+			$(".money").html("Money: $" + money);
 		}
 	});
 	$(".dropDown").click(function() {
