@@ -148,6 +148,7 @@ $(document).ready(function() {
 	$(".box").click(function() {
 		var boxId = parseInt($(this).attr("id"), 10);	
 		if($(this).attr("class").includes("red") && !boxes[boxId - 1].onCooldown) {
+			console.log(boxes[boxId - 1].onCooldown);
 			boxes[boxId - 1].loseHealth("black");
 			window.clearInterval(boxes[boxId - 1].gainInterval);
 			if(parseInt($("#" + boxes[boxId - 1].id).css("width"), 10) != 0) {
