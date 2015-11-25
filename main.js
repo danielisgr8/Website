@@ -35,6 +35,17 @@ $(document).ready(function() {
 				for(var i = 0; i < 192; i++) {
 					boxes[i].resetBox();
 				}
+				localStorage.clear();
+				var cat = ""
+				for(var i = 0; i < 192; i++) {
+					if(boxes[i].color == "red") {
+						cat += "R";
+					} else if(boxes[i].color == "blue") {
+						cat += "B";
+					}
+				}
+				localStorage.setItem("cat", cat);
+				console.log("new done");
 			}
 		}
 		this.createUpgrade = function() {
