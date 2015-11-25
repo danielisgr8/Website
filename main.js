@@ -31,6 +31,10 @@ $(document).ready(function() {
 				}
 				$("#" + this.id + ".description").html("Current: " + boxes[0].loseHealthRate);
 				$(".attack").html("Attack: " + boxes[0].loseHealthRate);
+			} else if(effect == "newMap") {
+				for(var i = 0; i < 192; i++) {
+					boxes[i].resetBox();
+				}
 			}
 		}
 		this.createUpgrade = function() {
@@ -66,6 +70,21 @@ $(document).ready(function() {
 			}
 		}
 		this.createBox();
+		this.resetBox = function() {
+			this.color = redOrBlue();
+			$("#" + (this.id)).css("background-color", this.color);
+			if(this.color == "red") {
+				if($("#" + this.id).hasClass("blue")) {
+					$("#" + this.id).removeClass("blue");
+					$("#" + this.id).addClass("red");
+				}
+			} else if(this.color == "blue") {
+				if($("#" + this.id).hasClass("red")) {
+					$("#" + this.id).removeClass("red");
+					$("#" + this.id).addClass("blue");
+				}
+			}
+		}
 		this.health = parseInt($("#" + (this.id)).css("width"), 10);
 		this.loseHealth = function(color) {
 			var box = "#" + this.id;
@@ -169,7 +188,8 @@ $(document).ready(function() {
 	});
 	upgrades[0] = new upgrade(1, "Lower Cooldown", "Current: " + boxes[0].cooldownRate, "$0");
 	upgrades[1] = new upgrade(2, "Increase Attack", "Current: " + boxes[0].loseHealthRate, "$0");
-	for(var i = 2; i < 10; i++) {
+	upgrades[2] = new upgrade(3, "New Map", "Create a new map", "$0");
+	for(var i = 3; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
 	$(".upgrade").click(function() {
@@ -177,6 +197,8 @@ $(document).ready(function() {
 			upgrades[0].effect("lowerCooldown");
 		} else if($(this).attr("id") == "2") {
 			upgrades[1].effect("increaseAttack");
+		} else if($(this).attr("id") == "3") {
+			upgrades[2].effect("newMap");
 		}
 	})
 	if(localStorage.getItem("cat") == null) {
