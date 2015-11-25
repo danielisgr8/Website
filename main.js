@@ -63,12 +63,12 @@ $(document).ready(function() {
 		this.health = parseInt($("#" + (this.id)).css("width"), 10);
 		this.loseHealth = function(color) {
 			var box = "#" + this.id;
-			if(parseInt($(box).css("width"), 10) >= this.loseHealthRate && parseInt($(box).css("border-right-width"), 10) <= (100 - this.loseHealthRate)) {
+			if(parseInt($(box).css("width"), 10) >= this.loseHealthRate) {
 				var width = parseInt($(box).css("width"), 10) - this.loseHealthRate;
 				var borderWidth = parseInt($(box).css("border-right-width"), 10) + this.loseHealthRate;
 				$(box).css("border-right", borderWidth + "px" + " solid " + color);
 				$(box).css("width", width + "px");
-			} else if(parseInt($(box).css("width"), 10) < this.loseHealthRate && parseInt($(box).css("border-right-width"), 10) > (100 - this.loseHealthRate)) {
+			} else {
 				$(box).css("border-right", 100 + "px" + " solid " + color);
 				$(box).css("width", 0 + "px");
 				me.onCooldown = true;
@@ -84,7 +84,7 @@ $(document).ready(function() {
 				var elapsedTime = (me.now.getTime() - me.before.getTime());
 				if(elapsedTime > 100) {
 					//Recover the motion lost while inactive.
-					if(a * Math.floor(elapsedTime / 100) + parseInt($(box).css("width"), 10) > 100) {
+					if(a * Math.floor(elapsedTime / 100) + parseInt($(box).css("width"), 10) >= 100) {
 						$(box).css("border-right-width", 0 + "px");
 						$(box).css("width", 100 + "px");
 						window.clearInterval(me.gainInterval);
@@ -92,15 +92,15 @@ $(document).ready(function() {
 						a = a * Math.floor(elapsedTime / 100);
 						$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - a + "px");
 						$(box).css("width", parseInt($(box).css("width"), 10) + a + "px");
-						if(parseInt($(box).css("width"), 10) >= 100) {
-							window.clearInterval(me.gainInterval);
-						}
 					}
 				} else {
-					$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - a + "px");
-					$(box).css("width", parseInt($(box).css("width"), 10) + a + "px");
-					if(parseInt($(box).css("width"), 10) >= 100) {
+					if(a + parseInt($(box).css("width"), 10) >= 100) {
+						$(box).css("border-right-width", 0 + "px");
+						$(box).css("width", 100 + "px");
 						window.clearInterval(me.gainInterval);
+					} else {
+						$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - a + "px");
+						$(box).css("width", parseInt($(box).css("width"), 10) + a + "px");
 					}
 				}
 				me.before = new Date();
@@ -125,21 +125,16 @@ $(document).ready(function() {
 						a = a * Math.floor(elapsedTime / 100);
 						$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - a + "px");
 						$(box).css("border-left-width", parseInt($(box).css("border-left-width"), 10) + a + "px");
-						if(parseInt($(box).css("border-left-width"), 10) == 100) {
-							$(box).css("border-left-width", 0 + "px");
-							$(box).css("width", 100 + "px");
-							me.onCooldown = false;
-							window.clearInterval(me.cooldownInterval);
-						}
 					}
 				} else {
-					$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - me.cooldownRate + "px");
-					$(box).css("border-left-width", parseInt($(box).css("border-left-width"), 10) + me.cooldownRate + "px");
-					if(parseInt($(box).css("border-left-width"), 10) >= 100) {
+					if(a + parseInt($(box).css("border-left-width"), 10) >= 100) {
 						$(box).css("border-left-width", 0 + "px");
 						$(box).css("width", 100 + "px");
 						me.onCooldown = false;
 						window.clearInterval(me.cooldownInterval);
+					} else {
+						$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - me.cooldownRate + "px");
+						$(box).css("border-left-width", parseInt($(box).css("border-left-width"), 10) + me.cooldownRate + "px");
 					}
 				}
 				me.before = new Date();
