@@ -24,7 +24,7 @@ $(document).ready(function() {
 				for(var i = 0; i < 192; i++) {
 					boxes[i].cooldownRate += 1;
 				}
-				console.log("New cooldown rate: " + boxes[0].cooldownRate);
+				$("#" + this.id + ".description").html("Current: " + boxes[0].cooldownRate, "$0");
 			}
 		}
 		this.createUpgrade = function() {
