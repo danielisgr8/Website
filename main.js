@@ -35,6 +35,7 @@ $(document).ready(function() {
 				for(var i = 0; i < 192; i++) {
 					window.clearInterval(boxes[i].gainInterval);
 					window.clearInterval(boxes[i].cooldownInterval);
+					boxes[i].onCooldown = false;
 					$("#" + (i + 1)).css("border-left-width", 0);
 					$("#" + (i + 1)).css("border-right-width", 0);
 					$("#" + (i + 1)).css("width", 100);
