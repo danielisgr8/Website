@@ -148,7 +148,6 @@ $(document).ready(function() {
 	$(".box").click(function() {
 		var boxId = parseInt($(this).attr("id"), 10);	
 		if($(this).attr("class").includes("red") && !boxes[boxId - 1].onCooldown) {
-			console.log(boxes[boxId - 1].onCooldown);
 			boxes[boxId - 1].loseHealth("black");
 			window.clearInterval(boxes[boxId - 1].gainInterval);
 			if(parseInt($("#" + boxes[boxId - 1].id).css("width"), 10) != 0) {
@@ -162,7 +161,8 @@ $(document).ready(function() {
 	$(".dropDown").click(function() {
 		$(".upgradesHolder").slideToggle();
 	});
-	for(var i = 0; i < 10; i++) {
+	upgrades[0] = new upgrade(1, "Lower Cooldown", "Current: " + boxes[0].cooldownRate, "$0");
+	for(var i = 1; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
 	$(".upgrade").click(function() {
