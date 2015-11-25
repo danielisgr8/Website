@@ -115,7 +115,7 @@ $(document).ready(function() {
 				var a = me.cooldownRate;
 				var elapsedTime = (me.now.getTime() - me.before.getTime());
 				if(elapsedTime > 100) {
-					if(a * Math.floor(elapsedTime / 100) + parseInt($(box).css("border-left-width"), 10) > 100) {
+					if(a * Math.floor(elapsedTime / 100) + parseInt($(box).css("border-left-width"), 10) >= 100) {
 						$(box).css("border-left-width", 0 + "px");
 						$(box).css("border-right-width", 0 + "px");
 						$(box).css("width", 100 + "px");
@@ -135,7 +135,7 @@ $(document).ready(function() {
 				} else {
 					$(box).css("border-right-width", parseInt($(box).css("border-right-width"), 10) - me.cooldownRate + "px");
 					$(box).css("border-left-width", parseInt($(box).css("border-left-width"), 10) + me.cooldownRate + "px");
-					if(parseInt($(box).css("border-left-width"), 10) == 100) {
+					if(parseInt($(box).css("border-left-width"), 10) >= 100) {
 						$(box).css("border-left-width", 0 + "px");
 						$(box).css("width", 100 + "px");
 						me.onCooldown = false;
