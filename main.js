@@ -22,9 +22,14 @@ $(document).ready(function() {
 		this.effect = function(effect) {
 			if(effect == "lowerCooldown") {
 				for(var i = 0; i < 192; i++) {
-					boxes[i].cooldownRate += 1;
+					boxes[i].cooldownRate++;
 				}
-				$("#" + this.id + ".description").html("Current: " + boxes[0].cooldownRate, "$0");
+				$("#" + this.id + ".description").html("Current: " + boxes[0].cooldownRate);
+			} else if(effect == "increaseAttack") {
+				for(var i = 0; i < 192; i++) {
+					boxes[i].loseHealthRate++;
+				}
+				$("#" + this.id + ".description").html("Current: " + boxes[0].loseHealthRate);
 			}
 		}
 		this.createUpgrade = function() {
@@ -162,12 +167,15 @@ $(document).ready(function() {
 		$(".upgradesHolder").slideToggle();
 	});
 	upgrades[0] = new upgrade(1, "Lower Cooldown", "Current: " + boxes[0].cooldownRate, "$0");
+	upgrades[1] = new upgrade(2, "Increase Attack", "Current: " + boxes[0].loseHealthRate, "$0");
 	for(var i = 1; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
 	$(".upgrade").click(function() {
 		if($(this).attr("id") == "1") {
 			upgrades[0].effect("lowerCooldown");
+		} else if($(this).attr("id") == "2") {
+			upgrades[1].effect("increaseAttack");
 		}
 	})
 	if(localStorage.getItem("cat") == null) {
