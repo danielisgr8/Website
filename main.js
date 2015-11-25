@@ -63,7 +63,7 @@ $(document).ready(function() {
 		this.health = parseInt($("#" + (this.id)).css("width"), 10);
 		this.loseHealth = function(color) {
 			var box = "#" + this.id;
-			if(parseInt($(box).css("width"), 10) >= this.loseHealthRate) {
+			if(parseInt($(box).css("width"), 10) > this.loseHealthRate) {
 				var width = parseInt($(box).css("width"), 10) - this.loseHealthRate;
 				var borderWidth = parseInt($(box).css("border-right-width"), 10) + this.loseHealthRate;
 				$(box).css("border-right", borderWidth + "px" + " solid " + color);
