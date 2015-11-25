@@ -19,6 +19,14 @@ $(document).ready(function() {
 		this.title = title;
 		this.description = description;
 		this.cost = cost;
+		this.effect = function(effect) {
+			if(effect == "lowerCooldown") {
+				for(var i = 0; i < 192; i++) {
+					boxes[i].cooldownRate += 1;
+				}
+				console.log("New cooldown rate: " + boxes[0].cooldownRate);
+			}
+		}
 		this.createUpgrade = function() {
 			$(".upgradesHolder").append("<div class=\"upgrade\" id=\"" + this.id + "\"></div>");
 			$("#" + this.id + ".upgrade").append("<div class=\"infoHolder\" id=\"" + this.id + "\"></div>");
@@ -37,7 +45,6 @@ $(document).ready(function() {
 		this.loseHealthRate = loseHealthRate;
 		this.gainHealthRate = gainHealthRate;
 		this.cooldownRate = cooldownRate;
-		this.resultValue = 0;
 		this.onCooldown = false;
 		this.now;
 		this.before;
@@ -161,6 +168,11 @@ $(document).ready(function() {
 	for(var i = 0; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
+	$(".upgrade").click(function() {
+		if($(this).attr("id") == "1") {
+			upgrades[0].effect("lowerCooldown");
+		}
+	})
 	if(localStorage.getItem("cat") == null) {
 		var cat = "";
 		for(var i = 0; i < boxes.length; i++) {
