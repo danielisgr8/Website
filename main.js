@@ -129,6 +129,7 @@ $(document).ready(function() {
 				} else {
 					if(a + parseInt($(box).css("border-left-width"), 10) >= 100) {
 						$(box).css("border-left-width", 0 + "px");
+						$(box).css("border-right-width", 0 + "px");
 						$(box).css("width", 100 + "px");
 						me.onCooldown = false;
 						window.clearInterval(me.cooldownInterval);
