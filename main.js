@@ -263,8 +263,9 @@ $(document).ready(function() {
 });
 /*
 TODO
-[] use localstorage for money/attack also
-[] option to generate new map
+use localstorage for money/attack also
+red blocks break after 2nd use, blue blocks break after one click
+then, other blocks fall in that column and a new block appears at the top
 */
 /* IDEAS
 Click button to increase health of boxes (get some other currency in return?)
