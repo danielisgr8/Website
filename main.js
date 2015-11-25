@@ -35,7 +35,7 @@ $(document).ready(function() {
 				for(var i = 0; i < 192; i++) {
 					boxes[i].resetBox();
 				}
-				localStorage.clear();
+				localStorage.removeItem("cat");
 				var cat = ""
 				for(var i = 0; i < 192; i++) {
 					if(boxes[i].color == "red") {
