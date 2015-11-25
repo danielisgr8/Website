@@ -143,7 +143,7 @@ $(document).ready(function() {
 		}
 	}
 	for(var i = 0; i < 192; i++) {
-		boxes[i] = new box(i + 1, 10, 1, 10);
+		boxes[i] = new box(i + 1, attack, 1, 10);
 	}
 	$(".box").click(function() {
 		var boxId = parseInt($(this).attr("id"), 10);	
