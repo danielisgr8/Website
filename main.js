@@ -30,6 +30,7 @@ $(document).ready(function() {
 					boxes[i].loseHealthRate++;
 				}
 				$("#" + this.id + ".description").html("Current: " + boxes[0].loseHealthRate);
+				$(".attack").html("Attack: " + boxes[0].loseHealthRate);
 			}
 		}
 		this.createUpgrade = function() {
