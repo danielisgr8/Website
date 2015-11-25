@@ -33,6 +33,11 @@ $(document).ready(function() {
 				$(".attack").html("Attack: " + boxes[0].loseHealthRate);
 			} else if(effect == "newMap") {
 				for(var i = 0; i < 192; i++) {
+					window.clearInterval(boxes[i].gainInterval);
+					window.clearInterval(boxes[i].cooldownInterval);
+					$("#" + (i + 1)).css("border-left-width", 0);
+					$("#" + (i + 1)).css("border-right-width", 0);
+					$("#" + (i + 1)).css("width", 100);
 					boxes[i].resetBox();
 				}
 				localStorage.removeItem("cat");
