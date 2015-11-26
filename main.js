@@ -238,8 +238,10 @@ $(document).ready(function() {
 			upgrades[1].effect("increaseAttack");
 		} else if($(this).attr("id") == "3") {
 			upgrades[2].effect("newMap");
+		} else if($(this).attr("id") == "4") {
+			upgrades[3].effect("autoclicker");
 		}
-	})
+	});
 	if(localStorage.getItem("cat") == null) {
 		var cat = "";
 		for(var i = 0; i < boxes.length; i++) {
