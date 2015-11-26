@@ -206,7 +206,7 @@ $(document).ready(function() {
 	upgrades[0] = new upgrade(1, "Lower Cooldown", "Current: " + boxes[0].cooldownRate, "$0");
 	upgrades[1] = new upgrade(2, "Increase Attack", "Current: " + boxes[0].loseHealthRate, "$0");
 	upgrades[2] = new upgrade(3, "New Map", "Create a new map", "$0");
-	upgrades[3] = new upgrade(4, "Autoclicker", "Automatically clicks a red cell every " + upgrades[0].clickRate + " second(s)", "$0");
+	upgrades[3] = new upgrade(4, "Autoclicker", "Clicks a red cell every " + upgrades[0].clickRate + " second(s)", "$0");
 	for(var i = 4; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
