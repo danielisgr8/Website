@@ -67,7 +67,7 @@ body {
 .upgrade {
 	background-color: green;
 	margin-bottom: 5px;
-	height: 58px;
+	height: 65px;
 }
 
 .upgrade:hover {
@@ -86,7 +86,7 @@ body {
 	color: white;
 	margin-bottom: 0px;
 	margin-top: 0px;
-	height: 33px;
+	height: 40px;
 }
 
 .cost {
@@ -103,7 +103,7 @@ body {
 
 .infoHolder {
 	display: inline-block;
-	height: 58px;
+	height: 65px;
 	width: 200px;
 }
 
