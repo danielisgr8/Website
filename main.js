@@ -19,6 +19,7 @@ $(document).ready(function() {
 		this.title = title;
 		this.description = description;
 		this.cost = cost;
+		this.clickRate = 1;
 		this.effect = function(effect) {
 			if(effect == "lowerCooldown") {
 				for(var i = 0; i < 192; i++) {
@@ -51,7 +52,6 @@ $(document).ready(function() {
 					}
 				}
 				localStorage.setItem("cat", cat);
-				console.log("new done");
 			}
 		}
 		this.createUpgrade = function() {
@@ -206,7 +206,8 @@ $(document).ready(function() {
 	upgrades[0] = new upgrade(1, "Lower Cooldown", "Current: " + boxes[0].cooldownRate, "$0");
 	upgrades[1] = new upgrade(2, "Increase Attack", "Current: " + boxes[0].loseHealthRate, "$0");
 	upgrades[2] = new upgrade(3, "New Map", "Create a new map", "$0");
-	for(var i = 3; i < 10; i++) {
+	upgrades[3] = new upgrade(4, "Autoclicker", "Automatically clicks a red cell every " + upgrades[0].clickRate + " second(s)", "$0");
+	for(var i = 4; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
 	$(".upgrade").click(function() {
@@ -227,7 +228,6 @@ $(document).ready(function() {
 				cat += "B";
 			}
 		}
-		console.log("created");
 	} else {
 		var cat = localStorage.getItem("cat");
 	}
@@ -259,15 +259,11 @@ $(document).ready(function() {
 		localStorage.setItem("cat", cat);
 		console.log(localStorage.getItem("cat"));
 	});*/
-	console.log(localStorage.getItem("cat"));
 });
 /*
 TODO
+AUTOCLICKER: finds random red square and clicks it every x seconds
 use localstorage for money/attack also
 red blocks break after 2nd use, blue blocks break after one click
 then, other blocks fall in that column and a new block appears at the top
-*/
-/* IDEAS
-Click button to increase health of boxes (get some other currency in return?)
-Somehow differentiate health and width since they'll eventually have different values
 */
