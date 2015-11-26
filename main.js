@@ -15,11 +15,13 @@ $(document).ready(function() {
 		}
 	}
 	function upgrade(id, title, description, cost) {
+		var me = this;
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.cost = cost;
-		this.clickRate = 1;
+		this.clickRate = 1000;
+		this.autoclickerInterval;
 		this.effect = function(effect) {
 			if(effect == "lowerCooldown") {
 				for(var i = 0; i < 192; i++) {
@@ -52,6 +54,25 @@ $(document).ready(function() {
 					}
 				}
 				localStorage.setItem("cat", cat);
+			} else if(effect == "autoclicker") {
+				var redList = [];
+				for(var i = 0; i < 192; i++) {
+					if(boxes[i].color == "red") {
+						redList.push(boxes[i]);
+					}
+				}
+				var clickBox = redList[Math.floor(Math.random() * redList.length)];
+				this.autoclickerInterval = window.setInterval(function() {
+					if(clickBox.onCooldown) {
+						redList.filter(function(element, index, array) {
+							return element != clickBox;
+						});
+						clickBox = redList[Math.floor(Math.random() * redList.length)];
+					}
+					if(!clickBox.onCooldown) {
+						$("#" + clickBox.id).click();
+					}
+				}, me.clickRate);
 			}
 		}
 		this.createUpgrade = function() {
@@ -206,7 +227,7 @@ $(document).ready(function() {
 	upgrades[0] = new upgrade(1, "Lower Cooldown", "Current: " + boxes[0].cooldownRate, "$0");
 	upgrades[1] = new upgrade(2, "Increase Attack", "Current: " + boxes[0].loseHealthRate, "$0");
 	upgrades[2] = new upgrade(3, "New Map", "Create a new map", "$0");
-	upgrades[3] = new upgrade(4, "Autoclicker", "Clicks a red cell every " + upgrades[0].clickRate + " second(s)", "$0");
+	upgrades[3] = new upgrade(4, "Autoclicker", "Clicks a red cell every " + upgrades[0].clickRate / 1000 + " second(s)", "$0");
 	for(var i = 4; i < 10; i++) {
 		upgrades[i] = new upgrade(i + 1, "Title", "Desription", "Cost");
 	}
