@@ -2,6 +2,8 @@ $(document).ready(function() {
 	$(".upgradesHolder").hide();
 	var boxes = [];
 	var upgrades = [];
+	var autoclickers = [];
+	var redList = [];
 	var money = 0;
 	$(".money").html("Money: $" + money);
 	var attack = 10;
@@ -13,6 +15,30 @@ $(document).ready(function() {
 		} else {
 			return "blue";
 		}
+	}
+	function autoclicker(id, clickRate) {
+		var me = this;
+		this.id = id;
+		this.clickRate = clickRate;
+		this.autoclickerInterval;
+		this.clickBox = redList[Math.floor(Math.random() * redList.length)];
+		this.autoclick = function() {
+			this.autoclickerInterval = window.setInterval(function() {
+				if(me.clickBox.onCooldown) {
+					redList = [];
+					for(var i = 0; i < 192; i++) {
+						if(boxes[i].color == "red" && !boxes[i].onCooldown) {
+							redList.push(boxes[i]);
+						}
+					}
+					me.clickBox = redList[Math.floor(Math.random() * redList.length)];
+				}
+				if(!me.clickBox.onCooldown) {
+					$("#" + me.clickBox.id).click();
+				}
+			}, me.clickRate);
+		}
+		this.autoclick();
 	}
 	function upgrade(id, title, description, cost) {
 		var me = this;
@@ -44,6 +70,9 @@ $(document).ready(function() {
 					$("#" + (i + 1)).css("width", 100);
 					boxes[i].resetBox();
 				}
+				for(var i = 0; i < autoclickers.length; i++) {
+					window.clearInterval(autoclickers[i].autoclickerInterval);
+				}
 				localStorage.removeItem("map");
 				var map = ""
 				for(var i = 0; i < 192; i++) {
@@ -54,30 +83,23 @@ $(document).ready(function() {
 					}
 				}
 				localStorage.setItem("map", map);
-			} else if(effect == "autoclicker") {
-				var redList = [];
+				redList = [];
 				for(var i = 0; i < 192; i++) {
 					if(boxes[i].color == "red") {
 						redList.push(boxes[i]);
 					}
 				}
-				var clickBox = redList[Math.floor(Math.random() * redList.length)];
-				this.autoclickerInterval = window.setInterval(function() {
-					if(clickBox.onCooldown) {
-						console.log(clickBox);
-						redList = [];
-						for(var i = 0; i < 192; i++) {
-							if(boxes[i].color == "red" && !boxes[i].onCooldown) {
-								redList.push(boxes[i]);
-							}
-						}
-						console.log(redList);
-						clickBox = redList[Math.floor(Math.random() * redList.length)];
+				for(var i = 0; i < autoclickers.length; i++) {
+					autoclickers[i].clickBox = redList[Math.floor(Math.random() * redList.length)];
+				}
+			} else if(effect == "autoclicker") {
+				redList = [];
+				for(var i = 0; i < 192; i++) {
+					if(boxes[i].color == "red") {
+						redList.push(boxes[i]);
 					}
-					if(!clickBox.onCooldown) {
-						$("#" + clickBox.id).click();
-					}
-				}, me.clickRate);
+				}
+				autoclickers[autoclickers.length] = new autoclicker(autoclickers.length + 1, 1000);
 			}
 		}
 		this.createUpgrade = function() {
