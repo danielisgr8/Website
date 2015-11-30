@@ -44,16 +44,16 @@ $(document).ready(function() {
 					$("#" + (i + 1)).css("width", 100);
 					boxes[i].resetBox();
 				}
-				localStorage.removeItem("cat");
-				var cat = ""
+				localStorage.removeItem("map");
+				var map = ""
 				for(var i = 0; i < 192; i++) {
 					if(boxes[i].color == "red") {
-						cat += "R";
+						map += "R";
 					} else if(boxes[i].color == "blue") {
-						cat += "B";
+						map += "B";
 					}
 				}
-				localStorage.setItem("cat", cat);
+				localStorage.setItem("map", map);
 			} else if(effect == "autoclicker") {
 				var redList = [];
 				for(var i = 0; i < 192; i++) {
@@ -64,9 +64,14 @@ $(document).ready(function() {
 				var clickBox = redList[Math.floor(Math.random() * redList.length)];
 				this.autoclickerInterval = window.setInterval(function() {
 					if(clickBox.onCooldown) {
-						redList.filter(function(element, index, array) {
-							return element != clickBox;
-						});
+						console.log(clickBox);
+						redList = [];
+						for(var i = 0; i < 192; i++) {
+							if(boxes[i].color == "red" && !boxes[i].onCooldown) {
+								redList.push(boxes[i]);
+							}
+						}
+						console.log(redList);
 						clickBox = redList[Math.floor(Math.random() * redList.length)];
 					}
 					if(!clickBox.onCooldown) {
@@ -242,27 +247,27 @@ $(document).ready(function() {
 			upgrades[3].effect("autoclicker");
 		}
 	});
-	if(localStorage.getItem("cat") == null) {
-		var cat = "";
+	if(localStorage.getItem("map") == null) {
+		var map = "";
 		for(var i = 0; i < boxes.length; i++) {
 			if(boxes[i].color == "red") {
-				cat += "R";
+				map += "R";
 			} else if(boxes[i].color == "blue") {
-				cat += "B";
+				map += "B";
 			}
 		}
 	} else {
-		var cat = localStorage.getItem("cat");
+		var map = localStorage.getItem("map");
 	}
 	// change map to localstorage map
-	for(var i = 0; i < cat.length; i++) {
-		if(cat[i] == "R") {
+	for(var i = 0; i < map.length; i++) {
+		if(map[i] == "R") {
 			boxes[i].color = "red";
 			if($("#" + (i + 1)).hasClass("blue")) {
 				$("#" + (i + 1)).removeClass("blue");
 				$("#" + (i + 1)).addClass("red");
 			}
-		} else if(cat[i] == "B") {
+		} else if(map[i] == "B") {
 			boxes[i].color = "blue";
 			if($("#" + (i + 1)).hasClass("red")) {
 				$("#" + (i + 1)).removeClass("red");
@@ -271,21 +276,22 @@ $(document).ready(function() {
 		}
 		$("#" + (i + 1)).css("background-color", boxes[i].color);
 	}
-	localStorage.setItem("cat", cat);
+	localStorage.setItem("map", map);
 	/*$(".add").click(function() {
-		cat++;
-		localStorage.setItem("cat", cat);
-		console.log(localStorage.getItem("cat"));
+		map++;
+		localStorage.setItem("map", map);
+		console.log(localStorage.getItem("map"));
 	});
 	$(".subtract").click(function() {
-		cat--;
-		localStorage.setItem("cat", cat);
-		console.log(localStorage.getItem("cat"));
+		map--;
+		localStorage.setItem("map", map);
+		console.log(localStorage.getItem("map"));
 	});*/
 });
 /*
 TODO
-AUTOCLICKER: finds random red square and clicks it every x seconds
+MAKE SEPERATE OBJECT FOR ATUOCLICKER, every new purchase of autoclicker makes new autoclicker object, but autoclickers in an array to easily stop all autoclickers
+AUTOCLICKER: what happens when new map is generated while autoclicker is on?
 use localstorage for money/attack also
 red blocks break after 2nd use, blue blocks break after one click
 then, other blocks fall in that column and a new block appears at the top
