@@ -62,11 +62,19 @@ div.ondragend = function(e) {
 	div.style.backgroundColor = "blue";
 	window.clearInterval(interval);
 	frictionInterval = window.setInterval(function() {
-		if(parseInt(div.style.left, 10) + xVelocity < 0 || parseInt(div.style.left, 10) + xVelocity > document.documentElement.clientWidth - 100) {
+		if(parseInt(div.style.left, 10) + xVelocity < 0) {
+			div.style.left = "0px";
+			xVelocity = -xVelocity;
+		} else if(parseInt(div.style.left, 10) + xVelocity > document.documentElement.clientWidth - 100) {
+			div.style.left = document.documentElement.clientWidth - 100 + "px";
 			xVelocity = -xVelocity;
 		}
 		div.style.left = parseInt(div.style.left, 10) + xVelocity + "px";
-		if(parseInt(div.style.top, 10) + yVelocity < 0 || parseInt(div.style.top, 10) + yVelocity > document.documentElement.clientHeight - 100) {
+		if(parseInt(div.style.top, 10) + yVelocity < 0) {
+			div.style.top = "0px";
+			yVelocity = -yVelocity;
+		} else if(parseInt(div.style.top, 10) + yVelocity > document.documentElement.clientHeight - 100) {
+			div.style.top = document.documentElement.clientHeight - 100 + "px";
 			yVelocity = -yVelocity;
 		}
 		div.style.top = parseInt(div.style.top, 10) + yVelocity + "px";
