@@ -1,4 +1,4 @@
-var interval, friction;
+var interval, friction, frictionInterval = false;
 var div = document.getElementById("drag");
 div.draggable = true;
 div.style.left = 0;
@@ -25,6 +25,10 @@ div.ondragstart = function(e) {
 		yVelocity = vyAfter - vyBefore;
 		vyBefore = vyAfter;
 	}
+	if(frictionInterval) {
+		window.clearInterval(frictionInterval);
+		frictionInterval = false;
+	}
 }
 div.ondrag = function(e) {
 	xAfter = e.screenX;
@@ -33,19 +37,31 @@ div.ondrag = function(e) {
 	vyAfter = e.screenY;
 	if(xBefore != xAfter && xAfter != 0) {
 		var xDif = xAfter - xBefore;
-		div.style.left = parseInt(div.style.left, 10) + xDif + "px";
+		if(parseInt(div.style.left, 10) + xDif < 0) {
+			div.style.left = "0px";
+		} else if(parseInt(div.style.left, 10) + xDif > document.documentElement.clientWidth - 100) {
+			div.style.left = document.documentElement.clientWidth - 100 + "px";
+		} else {
+			div.style.left = parseInt(div.style.left, 10) + xDif + "px";
+		}
 		xBefore = xAfter;
 	}
 	if(yBefore != yAfter && yAfter != 0) {
 		var yDif = yAfter - yBefore;
-		div.style.top = parseInt(div.style.top, 10) + yDif + "px";
+		if(parseInt(div.style.top, 10) + yDif < 0) {
+			div.style.top = "0px";
+		} else if(parseInt(div.style.top, 10) + yDif > document.documentElement.clientHeight - 100) {
+			div.style.top = document.documentElement.clientHeight - 100 + "px";
+		} else {
+			div.style.top = parseInt(div.style.top, 10) + yDif + "px";
+		}
 		yBefore = yAfter;
 	}
 }
 div.ondragend = function(e) {
 	div.style.backgroundColor = "blue";
 	window.clearInterval(interval);
-	var frictionInterval = window.setInterval(function() {
+	frictionInterval = window.setInterval(function() {
 		if(parseInt(div.style.left, 10) + xVelocity < 0 || parseInt(div.style.left, 10) + xVelocity > document.documentElement.clientWidth - 100) {
 			xVelocity = -xVelocity;
 		}
@@ -55,8 +71,12 @@ div.ondragend = function(e) {
 		}
 		div.style.top = parseInt(div.style.top, 10) + yVelocity + "px";
 	}, 10);
-	// interval
-	// if velocity isn't 0
-	// change position by velocity
-	// subtract velocity by accelartion due to friction
+}
+document.onkeypress = function(e) {
+	if(e.charCode == 32) {
+		xVelocity = 0;
+		yVelocity = 0;
+		window.clearInterval(frictionInterval);
+		frictionInterval = false;
+	}
 }
