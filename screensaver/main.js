@@ -18,11 +18,21 @@ div.ondragstart = function(e) {
 		if(typeof xAfter != "undefined" && typeof yAfter != "udnefined") {
 			friction();
 		}
-	}, 10);
+	}, 5);
 	function friction() {
 		xVelocity = vxAfter - vxBefore;
+		if(xVelocity > 75) {
+			xVelocity = 75;
+		} else if(xVelocity < -75) {
+			xVelocity = -75;
+		}
 		vxBefore = vxAfter;
 		yVelocity = vyAfter - vyBefore;
+		if(yVelocity > 75) {
+			yVelocity = 75;
+		} else if(yVelocity < -75) {
+			yVelocity = -75;
+		}
 		vyBefore = vyAfter;
 	}
 	if(frictionInterval) {
@@ -78,7 +88,7 @@ div.ondragend = function(e) {
 			yVelocity = -yVelocity;
 		}
 		div.style.top = parseInt(div.style.top, 10) + yVelocity + "px";
-	}, 10);
+	}, 5);
 }
 document.onkeypress = function(e) {
 	if(e.charCode == 32) {
