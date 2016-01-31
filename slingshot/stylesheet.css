@@ -1,0 +1,24 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+#drag {
+	width: 100px;
+	height: 100px;
+	background-color: blue;
+	position: absolute;
+	z-index: 1;
+}
+#pHolder {
+	text-align: center;
+	width: 50%;
+	margin: 0 auto;
+	z-index: 0;
+}
+p {
+	font-family: Helvetica;
+	font-size: 32px;
+	opacity: 0.5;
+}
