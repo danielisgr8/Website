@@ -5,20 +5,30 @@ html, body {
 	overflow: hidden;
 }
 #drag {
-	width: 100px;
-	height: 100px;
 	background-color: blue;
 	position: absolute;
-	z-index: 1;
+	z-index: 2;
 }
 #pHolder {
 	text-align: center;
 	width: 50%;
 	margin: 0 auto;
-	z-index: 0;
+	z-index: 1;
 }
 p {
 	font-family: Helvetica;
 	font-size: 32px;
 	opacity: 0.5;
+}
+#lineHolder {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+}
+#line {
+	background-color: green;
+	position: relative;
+	left: 40px;
+	top: 40px;
+	z-index: 3;
 }
