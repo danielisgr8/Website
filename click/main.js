@@ -1,10 +1,11 @@
 var canvas = document.getElementById("canvas");
+canvas.width = document.body.clientWidth;
+canvas.height = document.body.clientHeight;
 var ctx = canvas.getContext("2d");
 ctx.beginPath();
-ctx.moveTo(0, 250)
-var lineX = 0, lineY = 250;
-var i = 0;
-window.setInterval(function() {
+ctx.moveTo(0, document.body.clientHeight / 2)
+var lineX = 0, lineY = document.body.clientHeight / 2;
+var interval = window.setInterval(function() {
 	// move right by random amount
 	var add = 50 * Math.random();
 	ctx.lineTo(lineX + add, lineY);
@@ -23,10 +24,9 @@ window.setInterval(function() {
 	ctx.closePath();
 	ctx.beginPath();
 	ctx.moveTo(lineX, lineY);
-	i++;
-	if(i >= 100 || lineX >= 1800) {
+	if(lineX >= document.body.clientWidth) {
 		window.clearInterval(interval);
 		lineX = 0;
-		lineY = 250;
+		lineY = document.body.clientHeight / 2;
 	}
 }, 50);
