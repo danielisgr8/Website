@@ -24,6 +24,7 @@ function draw() {
 				running.push(drawers[i]);
 			}
 		}
+		// move all active lines at the same time
 		for(var i = 0; i < running.length; i++) {
 			ctx.moveTo(running[i].lineX, running[i].lineY);
 			// move right by random amount
