@@ -9,7 +9,7 @@ body {
 }
 #imageHolder {
 	width: 1026px;
-	height: 400px;
+	height: 300px;
 	border: 2px solid silver;
 	border-radius: 10px;
 	margin: 0 auto;
@@ -18,11 +18,12 @@ body {
 	display: inline-block;
 	margin: 5px;
 	width: 325px;
-	height: 386px;
+	height: 286px;
 	border: 2px solid silver;
 	border-radius: 10px;
 	text-align: center;
 	vertical-align: top;
+	cursor: pointer;
 }
 .image {
 	margin: 5px 7.5px 5px 7.5px;
