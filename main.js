@@ -14,11 +14,11 @@ for(var i = 0; i < sites.length; i++) {
 	sites[i].onclick = function(e) {
 		var id = this.id;
 		if(id == "cellGame") {
-			location.href = "danielisgr8.github.io/cellGame";
+			location.href = "/cellGame";
 		} else if(id == "screensaver") {
-			location.href = "danielisgr8.github.io/screensaver";
+			location.href = "/screensaver";
 		} else if(id == "click") {
-			location.href = "danielisgr8.github.io/click";
+			location.href = "/click";
 		}
 	}
 }
