@@ -1,0 +1,25 @@
+body {
+	margin: 0;
+}
+.box {
+	width: 100px;
+	height: 100px;
+	background-color: blue;
+	margin-top: 50px;
+	position: absolute;
+	left: 500px;
+}
+.marker {
+	display: inline-block;
+	position: absolute;
+	margin-top: 200px;
+}
+#left {
+	left: 146px;
+}
+#zero {
+	left: 546px;
+}
+#right {
+	left: 946px;
+}

@@ -1,0 +1,8 @@
+body {
+	margin: 0;
+}
+span {
+	cursor: pointer;
+	display: inline-block;
+	margin: 0;
+}
