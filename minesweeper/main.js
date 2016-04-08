@@ -3,6 +3,7 @@ pre.innerHTML = "";
 var Game = {};
 Game.width = 10;
 Game.height = 10;
+Game.map = [[]];
 Game.createBoard = function() {
 	for(var i = 0; i < Game.width; i++) {
 		pre.innerHTML += " ___";
@@ -10,21 +11,47 @@ Game.createBoard = function() {
 	pre.innerHTML += "\n";
 	for(var i = 0; i < Game.height; i++) {
 		for(var j = 0; j < Game.width; j++) {
-			pre.innerHTML += "|<span>   </span>";
+			pre.innerHTML += "|<span class=\"x" + j + "y" + i + "\">   </span>";
 		}
 		pre.innerHTML += "|\n";
 		for(var j = 0; j < Game.width; j++) {
-			pre.innerHTML += "|<span>___</span>";
+			pre.innerHTML += "|<span class=\"x" + j + "y" + i + "\">___</span>";
 		}
 		pre.innerHTML += "|\n";
 	}
+	for(var i = 0; i < Game.height; i++) {
+		for(var j = 0; j < Game.width; j++) {
+
+		}
+	}
+}
+Game.start = function() {
+
 }
 var heightInput = document.getElementsByTagName("input")[0];
 var widthInput = document.getElementsByTagName("input")[1];
 var submit = document.getElementsByClassName("submit")[0];
+var start = document.getElementsByClassName("start")[0];
 submit.onclick = function(e) {
 	Game.height = heightInput.value;
 	Game.width = widthInput.value;
 	pre.innerHTML = "";
 	Game.createBoard();
+}
+pre.onclick = function(e) {
+	if(e.target !== e.currentTarget) {
+		var clickedItem = e.target.className;
+		document.getElementsByClassName(clickedItem)[0].style.backgroundColor = "red";
+		document.getElementsByClassName(clickedItem)[1].style.backgroundColor = "red";
+	}
+	e.stopPropagation();
+}
+pre.oncontextmenu = function(e) {
+	if(e.target !== e.currentTarget) {
+		var clickedItem = e.target.className;
+		document.getElementsByClassName(clickedItem)[0].style.backgroundColor = "blue";
+		document.getElementsByClassName(clickedItem)[1].style.backgroundColor = "blue";
+	}
+	e.stopPropagation();
+	return false;
 }
