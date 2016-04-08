@@ -5,25 +5,22 @@ Game.width = 10;
 Game.height = 10;
 Game.map = [[]];
 Game.createBoard = function() {
+	var add = "";
 	for(var i = 0; i < Game.width; i++) {
-		pre.innerHTML += " ___";
+		add += " ___";
 	}
-	pre.innerHTML += "\n";
+	add += "\n";
 	for(var i = 0; i < Game.height; i++) {
 		for(var j = 0; j < Game.width; j++) {
-			pre.innerHTML += "|<span class=\"x" + j + "y" + i + "\">   </span>";
+			add += "|<span class=\"x" + j + "y" + i + "\">   </span>";
 		}
-		pre.innerHTML += "|\n";
+		add += "|\n";
 		for(var j = 0; j < Game.width; j++) {
-			pre.innerHTML += "|<span class=\"x" + j + "y" + i + "\">___</span>";
+			add += "|<span class=\"x" + j + "y" + i + "\">___</span>";
 		}
-		pre.innerHTML += "|\n";
+		add += "|\n";
 	}
-	for(var i = 0; i < Game.height; i++) {
-		for(var j = 0; j < Game.width; j++) {
-
-		}
-	}
+	pre.innerHTML += add;
 }
 Game.start = function() {
 
