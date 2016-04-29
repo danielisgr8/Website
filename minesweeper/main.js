@@ -2,6 +2,7 @@ var pre = document.getElementsByTagName("pre")[0];
 pre.innerHTML = "";
 var Game = {};
 Game.state = 0; // 0 = not generated, not started, 1 = generated, not started, 2 = generated, started
+Game.firstClick = true;
 Game.width;
 Game.height;
 var regex = /x\d+y\d+/;
@@ -29,17 +30,18 @@ Game.createBoard = function() {
 Game.start = function() {
 	if(Game.state == 1) {
 		Game.state = 2;
+		Game.firstClick = true;
 		for(var i = 0; i < Game.width; i++) {
 			for(var j = 0; j < Game.height; j++) {
 				var random = Math.random();
 				var element = document.getElementsByClassName("x" + i + "y" + j);
-				if(random < .5) {
+				if(random < .25) {
 					element[0].className += " m";
-					element[0].innerHTML = " m ";
+					element[0].innerHTML = "   ";
 					element[1].className += " m";
 				} else {
 					element[0].className += " b";
-					element[0].innerHTML = " b ";
+					element[0].innerHTML = "   ";
 					element[1].className += " b";
 				}
 			}
@@ -101,8 +103,6 @@ Game.getMineCount = function(element) {
 			}
 		}
 		return mineCount;
-	} else {
-		return "m";
 	}
 }
 var heightInput = document.getElementsByTagName("input")[0];
@@ -121,7 +121,47 @@ start.onclick = function(e) {
 pre.onclick = function(e) {
 	if(e.target !== e.currentTarget) {
 		var clickedItem = e.target;
-		document.getElementsByClassName(clickedItem.className)[0].innerHTML = " " + Game.getMineCount(clickedItem) + " ";
+		if(Game.firstClick) {
+			if(clickedItem.className.includes("m")) {
+				clickedItem.className = clickedItem.className.replace("m", "b");
+			}
+			var finalArea = 5 + 10 * Math.random();
+			var changes = 0;
+			var startX = parseInt(regexX.exec(clickedItem.className)[0].slice(1), 10);
+			var startY = parseInt(regexY.exec(clickedItem.className)[0].slice(1), 10);
+			var start = document.getElementsByClassName("x" + startX + "y" + startY)[0];
+			var area = [start];
+			while(changes < Math.floor(finalArea)) {
+				console.log("doin it");
+				var chosen = area[Math.floor(area.length * Math.random())];
+				var x = parseInt(regexX.exec(chosen.className)[0].slice(1), 10);
+				var y = parseInt(regexY.exec(chosen.className)[0].slice(1), 10);
+				var coordsX = [-1, 1, 0, 0];
+				var coordsY = [0, 0, -1, 1];
+				for(var i = 0; i < coordsX.length; i++) {
+					if(x + coordsX[i] >= 0 && x + coordsX[i] < Game.width && y + coordsY[i] >= 0 && y + coordsY[i] < Game.height) {
+						var element = document.getElementsByClassName("x" + (x + coordsX[i]) + "y"  + (y + coordsY[i]))[0];
+						if(!area.includes(element)) {
+							if(element.className.includes("m")) {
+								element.className = element.className.replace("m", "b");
+							}
+							area.push(element);
+							changes++;
+							i = coordsX.length;
+						}
+					}
+				}
+			}
+			for(var i = 0; i < area.length; i++) {
+				document.getElementsByClassName(area[i].className)[0].innerHTML = " " + Game.getMineCount(area[i]) + " ";
+			}
+			Game.firstClick = false;
+		}
+		if(clickedItem.className.includes("b")) {
+			document.getElementsByClassName(clickedItem.className)[0].innerHTML = " " + Game.getMineCount(clickedItem) + " ";
+		} else {
+			pre.innerHTML = "GAME OVER";
+		}
 	}
 	e.stopPropagation();
 }
@@ -133,3 +173,11 @@ pre.oncontextmenu = function(e) {
 	e.stopPropagation();
 	return false;
 }
+/* on click:
+make clicked element blank (not a mine)
+create area variable that is random (within a range)
+var changes = 0;
+while(changes < area):
+choose random outer element (first iteration it will always be element originally clicked) and move it in a direction (unless that moves it to an already affected element) and make that blank (similar to area finding function)
+changes++
+*/
