@@ -132,7 +132,6 @@ pre.onclick = function(e) {
 			var start = document.getElementsByClassName("x" + startX + "y" + startY)[0];
 			var area = [start];
 			while(changes < Math.floor(finalArea)) {
-				console.log("doin it");
 				var chosen = area[Math.floor(area.length * Math.random())];
 				var x = parseInt(regexX.exec(chosen.className)[0].slice(1), 10);
 				var y = parseInt(regexY.exec(chosen.className)[0].slice(1), 10);
