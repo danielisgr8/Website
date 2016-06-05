@@ -26,3 +26,11 @@ input::-webkit-input-placeholder {
 	color: #38E4AE;
 	text-transform: none;
 }
+input::-moz-placeholder {
+	color: #38E4AE;
+	text-transform: none;
+}
+input:-ms-input-placeholder { 
+	color: #38E4AE;
+	text-transform: none;
+}
