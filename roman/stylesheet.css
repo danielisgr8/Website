@@ -1,0 +1,28 @@
+p {
+	font-size: 100px;
+	margin: 10px;
+	font-family: Arial, "Time New Roman";
+	color: #00A571;
+	text-transform: uppercase;
+}
+body {
+	background-color: #38E4AE;
+	margin: 0px;
+}
+input {
+	height: 60px;
+	width: 100%;
+	font-size: 42px;
+	background-color: #00A571; 
+	border: 0;
+	padding: 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+input:focus {
+	outline: none;
+}
+input::-webkit-input-placeholder {
+	color: #38E4AE;
+	text-transform: none;
+}

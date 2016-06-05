@@ -38,6 +38,9 @@ function Paddle() {
 	}
 }
 var paddle1 = new Paddle();
+function Bot() {
+	// for auto moving, if(ball.xvel > 0)
+}
 function Ball() {
 	this.x = 74;
 	this.y = 23;
