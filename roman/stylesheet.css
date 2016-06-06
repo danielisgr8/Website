@@ -1,13 +1,23 @@
-p {
+.answer {
 	font-size: 100px;
 	margin: 10px;
-	font-family: Arial, "Time New Roman";
 	color: #00A571;
 	text-transform: uppercase;
+}
+.warningContainer {
+	text-align: center;
+}
+.warning {
+	margin-top: 4px;
+	margin-bottom: 0;
+}
+.answerContainer {
+	text-align: center;
 }
 body {
 	background-color: #38E4AE;
 	margin: 0px;
+	font-family: Arial, "Time New Roman";
 }
 input {
 	height: 60px;
