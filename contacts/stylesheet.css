@@ -1,0 +1,20 @@
+body {
+	margin: 0;
+	font-family: Arial;
+}
+body>h1 {
+	border-bottom: black solid 1px;
+	margin-left: 5px;
+}
+body>button {
+	margin-left: 5px;
+}
+ul>li {
+	cursor: pointer;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+li>span {
+	color: red;
+}

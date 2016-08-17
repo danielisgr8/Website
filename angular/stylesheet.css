@@ -1,0 +1,31 @@
+body {
+	margin: 0;
+	font-family: Arial;
+	text-align: center;
+}
+h1 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.tabHolder {
+	display: inline-block;
+	border: 1px solid #ddd;
+	border-radius: 4px 4px 0 0;
+}
+.tabHolder>ul {
+	cursor: pointer;
+}
+.tabHolder>ul>li {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.tabHolder>ul>li:nth-last-child(1)>a {
+	margin: 0;
+}
+.classHolder {
+	margin-top: 10px;
+}
+.classHolder>ul {
+	text-align: left;
+}
