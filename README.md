@@ -1,4 +1,4 @@
-# Website
-Cell Game Website
+# My Website Projects
+Some JavaScript, HTML, and CSS projects I've created. Some are testing the understanding of new concepts, libraries, etc., and others I just happened to think of!
 
-[Website](https://danielisgr8.github.io)
+[Home page (lists projects and brief descriptions)](https://danielisgr8.github.io)

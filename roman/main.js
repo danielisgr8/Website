@@ -28,7 +28,7 @@ String.prototype.toRomanNumerals = function() {
 	} else {
 		return ltn(this[0]);
 	}
-}
+};
 input.oninput = function(e) {
 	var initialString = input.value.toUpperCase();
 	var finalString = "";
@@ -42,4 +42,4 @@ input.oninput = function(e) {
 	} else {
 		answer.innerHTML = "";
 	}
-}
+};
