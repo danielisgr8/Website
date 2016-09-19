@@ -1,98 +1,129 @@
-var interval, friction, frictionInterval = false;
+// Essentially a conveyor belt where the oldest element leaves to the left and the new element joins from the right
+Array.prototype.forcePush = function(elem, maxLength) {
+	var arr = this;
+	if(arr.length >= maxLength) {
+		arr = arr.slice(arr.length - maxLength + 1, arr.length);
+		arr.push(elem);
+	} else {
+		arr.push(elem);
+	}
+	return arr;
+}
+var frictionInterval = false;
 var div = document.getElementById("drag");
-div.draggable = true;
 div.style.left = 0;
 div.style.top = 0;
 var img = document.createElement("img");
 img.src = "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png";
 var xBefore, xAfter, yBefore, yAfter;
-var xVelocity, vxBefore, vxAfter, yVelocity, vyBefore, vyAfter;
+var xVelocity, yVelocity;
+var vxHistory = [], vyHistory = []; // Becomes an array of the last five changes in thei respective directions. A more lenient instantaneous velocity.
+var clientHeight, clientWidth;
+var divLeft = div.style.left; // div.style.left
+var divTop = div.style.top; // div.style.top
+
 div.ondragstart = function(e) {
 	e.dataTransfer.setDragImage(img, 0, 0);
+	e.dataTransfer.setData("Text", "");
 	div.style.backgroundColor = "red";
-	xBefore = e.screenX;
-	yBefore = e.screenY;
-	vxBefore = e.screenX;
-	vyBefore = e.screenY;
-	interval = window.setInterval(function() {
-		if(typeof xAfter != "undefined" && typeof yAfter != "udnefined") {
-			friction();
-		}
-	}, 5);
-	function friction() {
-		xVelocity = vxAfter - vxBefore;
-		if(xVelocity > 75) {
-			xVelocity = 75;
-		} else if(xVelocity < -75) {
-			xVelocity = -75;
-		}
-		vxBefore = vxAfter;
-		yVelocity = vyAfter - vyBefore;
-		if(yVelocity > 75) {
-			yVelocity = 75;
-		} else if(yVelocity < -75) {
-			yVelocity = -75;
-		}
-		vyBefore = vyAfter;
-	}
 	if(frictionInterval) {
 		window.clearInterval(frictionInterval);
 		frictionInterval = false;
 	}
+	xAfter = null;
+	yAfter = null;
+	xBefore = e.screenX;
+	yBefore = e.screenY;
+	vxHistory = [];
+	vyHistory = [];
 }
+
+// Updates coordinate and actually moves the box, making sure it doesn't go outside the client's boundaries.
 div.ondrag = function(e) {
 	xAfter = e.screenX;
+	var dx = xAfter - xBefore;
 	yAfter = e.screenY;
-	vxAfter = e.screenX;
-	vyAfter = e.screenY;
+	var dy = yAfter - yBefore;
+	// Movement of the div when dragged
 	if(xBefore != xAfter && xAfter != 0) {
-		var xDif = xAfter - xBefore;
-		if(parseInt(div.style.left, 10) + xDif < 0) {
+		divLeft = parseInt(div.style.left, 10);
+		clientWidth = document.documentElement.clientWidth;
+		// divLeft + dx is the amount the div WOULD move
+		// If it would move outside the boundaries of the client, it will instead only go to the client's border
+		// Otherwise, it will simply move as intended (divLeft + dx)
+		if(divLeft + dx < 0) {
 			div.style.left = "0px";
-		} else if(parseInt(div.style.left, 10) + xDif > document.documentElement.clientWidth - 100) {
-			div.style.left = document.documentElement.clientWidth - 100 + "px";
+		} else if(divLeft + dx > clientWidth - 100) {
+			div.style.left = clientWidth - 100 + "px";
 		} else {
-			div.style.left = parseInt(div.style.left, 10) + xDif + "px";
+			div.style.left = divLeft + dx + "px";
 		}
-		xBefore = xAfter;
 	}
+	if(xAfter != 0) {
+		vxHistory = vxHistory.forcePush(dx * 5, 5);
+	}
+	xBefore = xAfter;
+	// divTop + dy is the amount the div WOULD move
+	// If it would move outside the boundaries of the client, it will instead only go to the client's border
+	// Otherwise, it will simply move as intended (divTop + dy)
 	if(yBefore != yAfter && yAfter != 0) {
-		var yDif = yAfter - yBefore;
-		if(parseInt(div.style.top, 10) + yDif < 0) {
+		divTop = parseInt(div.style.top, 10);
+		clientHeight = document.documentElement.clientHeight;
+		if(divTop + dy < 0) {
 			div.style.top = "0px";
-		} else if(parseInt(div.style.top, 10) + yDif > document.documentElement.clientHeight - 100) {
-			div.style.top = document.documentElement.clientHeight - 100 + "px";
+		} else if(divTop + dy > clientHeight - 100) {
+			div.style.top = clientHeight - 100 + "px";
 		} else {
-			div.style.top = parseInt(div.style.top, 10) + yDif + "px";
+			div.style.top = divTop + dy + "px";
 		}
-		yBefore = yAfter;
 	}
+	if(yAfter != 0) {
+		vyHistory = vyHistory.forcePush(dy * 5, 5);
+	}
+	yBefore = yAfter;
 }
+
 div.ondragend = function(e) {
 	div.style.backgroundColor = "blue";
-	window.clearInterval(interval);
+	var xSum = 0;
+	vxHistory.forEach(function(value) {
+		xSum += value;
+	});
+	xVelocity = xSum / vxHistory.length;
+	var ySum = 0;
+	vyHistory.forEach(function(value) {
+		ySum += value;
+	});
+	yVelocity = ySum / vyHistory.length;
 	frictionInterval = window.setInterval(function() {
-		if(parseInt(div.style.left, 10) + xVelocity < 0) {
+		clientWidth = document.documentElement.clientWidth;
+		clientHeight = document.documentElement.clientHeight;
+		divLeft = parseInt(div.style.left, 10);
+		divTop = parseInt(div.style.top, 10);
+		if(divLeft + xVelocity < 0) {
 			div.style.left = "0px";
 			xVelocity = -xVelocity;
-		} else if(parseInt(div.style.left, 10) + xVelocity > document.documentElement.clientWidth - 100) {
-			div.style.left = document.documentElement.clientWidth - 100 + "px";
+		} else if(divLeft + xVelocity > clientWidth - 100) {
+			div.style.left = clientWidth - 100 + "px";
 			xVelocity = -xVelocity;
 		}
-		div.style.left = parseInt(div.style.left, 10) + xVelocity + "px";
-		if(parseInt(div.style.top, 10) + yVelocity < 0) {
+		div.style.left = divLeft + xVelocity + "px";
+		if(divTop + yVelocity < 0) {
 			div.style.top = "0px";
 			yVelocity = -yVelocity;
-		} else if(parseInt(div.style.top, 10) + yVelocity > document.documentElement.clientHeight - 100) {
-			div.style.top = document.documentElement.clientHeight - 100 + "px";
+		} else if(divTop + yVelocity > clientHeight - 100) {
+			div.style.top = clientHeight - 100 + "px";
 			yVelocity = -yVelocity;
 		}
-		div.style.top = parseInt(div.style.top, 10) + yVelocity + "px";
+		div.style.top = divTop + yVelocity + "px";
 	}, 5);
 }
 document.onkeypress = function(e) {
+	// charCode 32 is spacebar
 	if(e.charCode == 32) {
+		vxHistory = [];
 		xVelocity = 0;
+		vyHistory = [];
 		yVelocity = 0;
 		window.clearInterval(frictionInterval);
 		frictionInterval = false;

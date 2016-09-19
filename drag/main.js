@@ -5,7 +5,7 @@ var velocity = [];
 var vInterval1, vInterval2, vInterval3, vInterval4;
 var img = document.getElementsByTagName("img")[0];
 img.draggable = false;
-img.style.left = window.getComputedStyle(img).getPropertyValue("left");
+img.style.left = 0;
 img.onmousedown = function(e) {
 	document.body.style.cursor = "-webkit-grabbing";
 	var movements = [];
