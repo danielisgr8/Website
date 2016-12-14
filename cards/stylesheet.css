@@ -11,6 +11,14 @@ pre {
     margin: 0;
 }
 
+pre, button {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .handBottom > .handHolder > pre {
     cursor: pointer;
 }
