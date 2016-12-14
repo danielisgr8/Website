@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cards</title>
+        <link type="text/css" href="stylesheet.css" rel="stylesheet">
+        <link rel="icon" href="favicon-32.png" type="image/gif">
+        <script src="main.js" defer></script>
+    </head>
+    <body>
+        <template id="cardTemplate">
+            <div id="card">
+                <div id="left" class="side">
+                    <div class="rank"></div>
+                    <div class="suit"></div>
+                </div>
+                <div id="middle" class="">
+                    <div id="image"></div>
+                </div>
+                <div id="right" class="side">
+                    <div class="rank"></div>
+                    <div class="suit"></div>
+                </div>
+            </div>
+        </template>
+        <template id="handTemplate">
+            <div class="handHolder"></div>
+        </template>
+        <div class="gameHolder">
+            <div class="deckButtons">
+                <button class="deal">Deal a hand</button>
+                <button class="shuffle">Shuffle deck</button>
+                <button class="returnAll">Return all</button>
+            </div>
+            <div class="deckHolder"></div>
+            <div class="handsHolder">
+                <div class="hand handLeft"></div>
+                <div class="handsMiddle">
+                    <div class="hand handTop"></div>
+                    <div class="hand handMiddle"></div>
+                    <div class="hand handBottom">
+                        <button class="orderUp">Order up</button>
+                        <button class="pass">Pass</button>
+                    </div>
+                </div>
+                <div class="hand handRight"></div>
+            </div>
+        </div>
+    </body>
+</html>
