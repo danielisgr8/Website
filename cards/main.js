@@ -13,7 +13,8 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-gameState = 0;
+var gameState = 0;
+var trump;
 
 var cardTemplate = document.getElementById("cardTemplate");
 var handTemplate = document.getElementById("handTemplate");
@@ -23,7 +24,15 @@ var handTop = document.getElementsByClassName("handTop")[0];
 var handRight = document.getElementsByClassName("handRight")[0];
 var handBottom = document.getElementsByClassName("handBottom")[0];
 var handMiddle = document.getElementsByClassName("handMiddle")[0];
-var hands = [handRight, handBottom, handLeft, handTop, handMiddle];
+var hands = [handRight, handBottom, handLeft, handTop];
+
+function changeHandsOrder(first) {
+    var start = hands.indexOf(first);
+    var newHands = [];
+    for(var i = 0; i < hands.length; i++) {
+        newHands[i % start] = hands[i];
+    }
+}
 
 // TODO: make Game class that sets up certain games (Euchre, etc.) automatically (should allow for individual rank and suit arrays)
 
@@ -195,6 +204,9 @@ class Deck {
 }
 
 // TODO: playCard: (check to make play order is followed) (should have hands other than player's just have first card in hand played)
+// TODO: once trump suit is picked, reorganize hand
+// TODO: create method to choose best card in a hand (for deiciding who wins the trick)
+// TODO: write stuff for second round of bidding
 
 class Hand {
     constructor(deck, parent, max) {
@@ -356,6 +368,7 @@ var orderUp = document.querySelector(".orderUp");
 orderUp.style.display = "none";
 
 orderUp.onclick = function(e) {
+    trump = handMiddleObj.hand[0].suit; // set trump suit
     handTopObj.returnToDeck(0, 1); // move the first card (for testing purposes) of top's hand to the deck
     handMiddleObj.moveToHand(0, 1, handTopObj, true); // move the turned up middle card to the dealer's hand (top)
     handMiddleObj.returnToDeck(); // move the rest of middle's cards to the deck
@@ -373,13 +386,16 @@ pass.onclick = function(e) {
     gameState = 1;
 }
 
-var handsObj = [handRightObj, handBottomObj, handLeftObj, handTopObj, handMiddleObj];
+var handsObj = [handRightObj, handBottomObj, handLeftObj, handTopObj];
 
 var findNext = function(val) {
-    if(val == 4) {
-        handsObj[val].generate(4);
-        handsObj[val].hideAll();
-        handsObj[val].unhide(0);
+    let next = val % 4;
+    if(val == 8) {
+        let next = 4;
+        handMiddleObj.generate(4);
+        handMiddleObj.hideAll();
+        handMiddleObj.unhide(0);
+        handMiddleObj.updateSmall();
         orderUp.style.display = "initial";
         pass.style.display = "initial";
         // make the player's hand interactive
@@ -391,18 +407,18 @@ var findNext = function(val) {
             }
         }
     } else {
-        if(hands[val].children[0].children.length == 3) {
-            handsObj[val].generate(2);
+        if(hands[next].children[0].children.length == 3) {
+            handsObj[next].generate(2);
         } else {
-            handsObj[val].generate(3);
+            handsObj[next].generate(3);
         }
-        if(val == 1) {
-            handsObj[val].unhideAll();
+        if(next == 1) {
+            handsObj[next].unhideAll();
         } else {
-            handsObj[val].hideAll();
+            handsObj[next].hideAll();
         }
     }
-    handsObj[val].updateSmall();
+    handsObj[next].updateSmall();
 }
 
 var next = 0;
@@ -410,15 +426,11 @@ var next = 0;
 document.querySelector(".deal").onclick = function(e) {
     if(deck.deck.length > 0) {
         if(next >= 0) {
-            if(next == 4 && hands[3].children[0].children.length != 5) {
-                next = 0;
-                findNext(next);
-                next++;
-            } else if(next == 4) {
+            if(next == 8) { // last time cards should be dealt
                 findNext(next);
                 next = -1;
             } else {
-                findNext(next);
+                findNext(next % 4);
                 next++;
             }
         }
