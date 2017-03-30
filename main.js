@@ -1,9 +1,13 @@
 var liList = document.getElementsByTagName("li");
 var i;
-for(i = 0; i < document.querySelector("ul").childElementCount; i++) {
+for(i = 0; ; i++) {
 	var li = liList[i];
 	var a = document.createElement("a");
-	a.href = "/" + li.id;
+	if(i < document.querySelector("ul").childElementCount) {
+		a.href = "/" + li.id;
+	} else {
+		a.href = "https://github.com/danielisgr8/danielisgr8.github.io/tree/master/" + li.id;
+	}
 	a.textContent = li.textContent;
 	a.id = "a" + i;
 	a.style.fontSize = "16px";
@@ -42,16 +46,4 @@ for(i = 0; i < document.querySelector("ul").childElementCount; i++) {
 			}
 		}, 50);
 	}
-}
-
-for(i; i < liList.length; i++) {
-	var li = liList[i];
-	var a = document.createElement("a");
-	a.href = "https://github.com/danielisgr8/danielisgr8.github.io/tree/master/" + li.id;
-	a.textContent = li.textContent;
-	a.id = "a" + i;
-	a.style.fontSize = "16px";
-	li.textContent = "";
-	li.className = "page";
-	li.appendChild(a);
 }
