@@ -1,0 +1,8 @@
+html, body {
+    width: 10000px;
+    height: 10000px;
+}
+
+body, pre {
+    margin: 0;
+}

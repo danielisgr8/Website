@@ -1,5 +1,6 @@
 var liList = document.getElementsByTagName("li");
-for(var i = 0; i < liList.length; i++) {
+var i;
+for(i = 0; i < document.querySelector("ul").childElementCount; i++) {
 	var li = liList[i];
 	var a = document.createElement("a");
 	a.href = "/" + li.id;
@@ -43,6 +44,14 @@ for(var i = 0; i < liList.length; i++) {
 	}
 }
 
-function increase(id) {
-	var li = document.getElementById(id);
+for(i; i < liList.length; i++) {
+	var li = liList[i];
+	var a = document.createElement("a");
+	a.href = "https://github.com/danielisgr8/danielisgr8.github.io/tree/master/" + li.id;
+	a.textContent = li.textContent;
+	a.id = "a" + i;
+	a.style.fontSize = "16px";
+	li.textContent = "";
+	li.className = "page";
+	li.appendChild(a);
 }
