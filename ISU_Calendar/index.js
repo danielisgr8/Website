@@ -37,6 +37,7 @@ function updateSigninStatus(signedIn) {
 
 function handleFormSubmit(e) {
 	e.preventDefault();
+	
 	const inputValues = [];
 	const inputs = document.querySelectorAll("#newEventForm > input");
 	for(let i = 0; i < 3; i++) { // only first 3 inputs are mandatory
