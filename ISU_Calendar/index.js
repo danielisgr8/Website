@@ -5,6 +5,7 @@ const SCOPE = "https://www.googleapis.com/auth/calendar";
 const authorizeButton = document.querySelector("#authorizeButton");
 const newEventForm = document.querySelector("#newEventForm");
 const warningText = document.querySelector("#warning");
+const confirmationText = document.querySelector("#confirmation");
 
 function handleClientLoad() {
 	gapi.load("client:auth2", initClient);
@@ -37,9 +38,12 @@ function updateSigninStatus(signedIn) {
 
 function handleFormSubmit(e) {
 	e.preventDefault();
-	
+
+	confirmationText.style.display = "none";
+
 	const inputValues = [];
 	const inputs = document.querySelectorAll("#newEventForm > input");
+
 	for(let i = 0; i < 3; i++) { // only first 3 inputs are mandatory
 		const el = inputs[i];
 		if(el.value) {
@@ -54,7 +58,6 @@ function handleFormSubmit(e) {
 		const el = inputs[i];
 		inputValues.push(el.value);
 	}
-	console.log(inputValues);
 	const [classVal, eventVal, dateVal, startVal, endVal, locationVal] = inputValues;
 	const summary = classVal + " " + eventVal;
 	createEvent(summary, locationVal, dateVal, startVal, endVal);
@@ -84,11 +87,11 @@ function createEvent(summary, location, date, startTime, endTime) {
 		resource.end.date = date;
 	}
 
-	console.log(resource);
 	gapi.client.calendar.events.insert({
 		"calendarId": "primary",
 		"resource": resource
 	}).then((res) => {
-		console.log("event created");
+		confirmationText.textContent = `"${summary}" event created.`;
+		confirmationText.style.display = "block";
 	});
 }
