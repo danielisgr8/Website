@@ -1,0 +1,7 @@
+#newEventForm > input {
+	display: block;
+}
+
+#warning {
+	color: red;
+}

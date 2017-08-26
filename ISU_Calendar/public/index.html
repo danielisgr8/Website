@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ISU Calendar</title>
+		<script defer src="index.js"></script>
+		<script async defer src="https://apis.google.com/js/api.js"
+			onload="handleClientLoad()">
+		</script>
+		<link href="index.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<h2>ISU Calendar</h2>
+		<button id="authorizeButton" style="display: none">Authorize</button>
+		<form id="newEventForm" style="display: none">
+			<label>Class:</label>
+			<input type="text">
+			<label>Event:</label>
+			<input type="text">
+			<label>Date:</label>
+			<input type="date">
+			<label>Start time (leave blank if all day):</label>
+			<input type="time">
+			<label>End time (leave blank if all day):</label>
+			<input type="time">
+			<label>Location:</label>
+			<input type="text">
+			<input type="submit" value="Add event">
+		</form>
+		<p id="warning" style="display: none">Please fill out each field</p>
+	</body>
+</html>
