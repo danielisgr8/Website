@@ -1,13 +1,16 @@
 var pre = document.getElementsByTagName("pre")[0];
 pre.innerHTML = "";
+
 var Game = {};
 Game.state = 0; // 0 = not generated, not started, 1 = generated, not started, 2 = generated, started
 Game.firstClick = true;
 Game.width;
 Game.height;
+
 var regex = /x\d+y\d+/;
 var regexX = /x\d+/;
 var regexY = /y\d+/;
+
 Game.createBoard = function() {
 	Game.state = 1;
 	var add = "";
@@ -27,6 +30,7 @@ Game.createBoard = function() {
 	}
 	pre.innerHTML += add;
 }
+
 Game.start = function() {
 	if(Game.state == 1) {
 		Game.state = 2;
@@ -48,6 +52,7 @@ Game.start = function() {
 		}
 	}
 }
+
 Game.getArea = function(start) {
 	if(Game.state == 2) {
 		var searching = true;
@@ -88,6 +93,7 @@ Game.getArea = function(start) {
 		return area.length;
 	}
 }
+
 Game.getMineCount = function(element) {
 	if(Game.state == 2 && element.className.includes("b")) {
 		var mineCount = 0;
@@ -105,19 +111,23 @@ Game.getMineCount = function(element) {
 		return mineCount;
 	}
 }
+
 var heightInput = document.getElementsByTagName("input")[0];
 var widthInput = document.getElementsByTagName("input")[1];
 var submit = document.getElementsByClassName("submit")[0];
 var start = document.getElementsByClassName("start")[0];
+
 submit.onclick = function(e) {
 	Game.height = heightInput.value;
 	Game.width = widthInput.value;
 	pre.innerHTML = "";
 	Game.createBoard();
 }
+
 start.onclick = function(e) {
 	Game.start();
 }
+
 pre.onclick = function(e) {
 	if(e.target !== e.currentTarget) {
 		var clickedItem = e.target;
@@ -164,6 +174,7 @@ pre.onclick = function(e) {
 	}
 	e.stopPropagation();
 }
+
 pre.oncontextmenu = function(e) {
 	if(e.target !== e.currentTarget) {
 		var clickedItem = e.target;
@@ -172,6 +183,7 @@ pre.oncontextmenu = function(e) {
 	e.stopPropagation();
 	return false;
 }
+
 /* on click:
 make clicked element blank (not a mine)
 create area variable that is random (within a range)

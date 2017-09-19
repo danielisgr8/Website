@@ -1,12 +1,12 @@
 body {
     font-family: arial;
     margin: 0;
-    background-color: #5BC0EB;
+    background-color: #003459;
 
 }
 #headerHolder {
     height: 100px;
-    background-color: #E55934;
+    background-color: #00171F;
 }
 
 .name {
@@ -18,7 +18,7 @@ body {
     text-align: right;
     padding: 4px 4px 4px 0;
     margin: 0;
-    color: #5BC0EB;
+    color: #00A8E8;
     font-size: 24px;
 }
 .contact > a {
@@ -27,7 +27,7 @@ body {
     font-size: 24px;
 }
 .title {
-    color: #5BC0EB;
+    color: #00A8E8;
     font-size: 48px;
     text-align: center;
     margin: 6px auto 0 auto;
@@ -50,12 +50,12 @@ li {
 }
 
 .page > a {
-    color: black;
+    color: #00A8E8;
     text-decoration: none;
     vertical-align: middle;
 }
 
 .header {
-    color: black;
+    color: #FFFFFF;
     margin-bottom: 8px;
 }
