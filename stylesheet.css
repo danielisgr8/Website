@@ -52,7 +52,7 @@ li {
 .page > a {
     color: #00A8E8;
     text-decoration: none;
-    vertical-align: middle;
+	padding: 8px;
 }
 
 .header {

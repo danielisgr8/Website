@@ -1,6 +1,6 @@
 var liList = document.getElementsByTagName("li");
 var i;
-for(i = 0; ; i++) {
+for(i = 0; i < liList.length; i++) {
 	var li = liList[i];
 	var a = document.createElement("a");
 	if(i < document.querySelector("ul").childElementCount) {
@@ -9,7 +9,6 @@ for(i = 0; ; i++) {
 		a.href = "https://github.com/danielisgr8/danielisgr8.github.io/tree/master/" + li.id;
 	}
 	a.textContent = li.textContent;
-	a.id = "a" + i;
 	a.style.fontSize = "16px";
 	li.textContent = "";
 	li.className = "page";
@@ -21,12 +20,14 @@ for(i = 0; ; i++) {
 			clearInterval(el.decreaseInterval);
 		}
 		e.currentTarget.increaseInterval = setInterval(() => {
-			if(el.style.fontSize >= "24px") {
+			const fontSize = parseInt(el.style.fontSize, 10);
+			const newFontSize = fontSize + (28 - fontSize) / 4;
+			if(newFontSize >= 24) {
 				clearInterval(el.increaseInterval);
 				el.style.fontSize = "24px";
 				el.increaseInterval = null;
 			} else {
-				el.style.fontSize = (parseInt(el.style.fontSize, 10) + 2) + "px";
+				el.style.fontSize = newFontSize + "px";
 			}
 		}, 50);
 	}
@@ -37,12 +38,14 @@ for(i = 0; ; i++) {
 			clearInterval(el.increaseInterval);
 		}
 		e.currentTarget.decreaseInterval = setInterval(() => {
-			if(el.style.fontSize <= "16px") {
+			const fontSize = parseInt(el.style.fontSize, 10);
+			const newFontSize = fontSize - (28 - fontSize) / 4;
+			if(newFontSize <= 16) {
 				clearInterval(el.decreaseInterval);
 				el.style.fontSize = "16px";
-				el.increaseInterval = null;
+				el.decreaseInterval = null;
 			} else {
-				el.style.fontSize = (parseInt(el.style.fontSize, 10) - 2) + "px";
+				el.style.fontSize = newFontSize + "px";
 			}
 		}, 50);
 	}
