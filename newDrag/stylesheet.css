@@ -42,3 +42,8 @@ body {
 #page2 {
 	background-color: #FE5F55;
 }
+
+#bg > div > p {
+	font-family: arial;
+	font-size: 72px;
+}

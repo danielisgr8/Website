@@ -30,10 +30,13 @@ bg.style.left = "0px";
 let down = 0;
 let xArr = [], yArr = [];
 let xi, xf, origin;
-let transInterval = null,
+let xInterval = null,
+	nMoveInterval = null;
+	transInterval = null,
 	bounceInterval = null;
 
 bg.onmousedown = (e) => {
+	clearInterval(xInterval);
 	clearInterval(transInterval);
 	clearInterval(bounceInterval);
 
@@ -42,12 +45,14 @@ bg.onmousedown = (e) => {
 	xArr = [];
 
 	xi = e.clientX;
-	origin = getStyleProperty("left");;
+	origin = getStyleProperty("left");
 }
 
 // TODO: replace this with interval in mousedown so that zeroes can be tracked
 bg.onmousemove = (e) => {
 	if(down) {
+		clearInterval(nMoveInterval);
+
 		xf = e.clientX;
 		xdif = xf - xi;
 
@@ -66,11 +71,16 @@ bg.onmousemove = (e) => {
 		}
 
 		xi = xf;
+
+		nMoveInterval = setInterval(() => {
+			add(xArr, 0);
+		}, 100);
 	}
 }
 
 bg.onmouseup = (e) => {
 	down = 0;
+	clearInterval(nMoveInterval);
 
 	let left = getStyleProperty("left");
 	if(left <= 0 && left >= -width() / 2) {
@@ -83,9 +93,6 @@ bg.onmouseup = (e) => {
 		if((origin >= -width() / 4 && left <= -width() / 4) ||
 		   (xvel <= -20) ||
 	       (origin <= -width() / 4 && left <= -width() / 4 && xvel < 20)) {
-			console.log((origin >= -width() / 4 && left <= -width() / 4));
-			console.log((xvel <= -20));
-			console.log((origin < -width() / 4 && xvel < 20));
 			xvel = xvel <= -20 ? xvel : -20;
 		} else {
 			xvel = xvel >= 20 ? xvel : 20;
