@@ -21,7 +21,7 @@ for(i = 0; i < liList.length; i++) {
 		}
 		e.currentTarget.increaseInterval = setInterval(() => {
 			const fontSize = parseInt(el.style.fontSize, 10);
-			const newFontSize = fontSize + (28 - fontSize) / 4;
+			const newFontSize = fontSize + getFontSizeChange(fontSize);
 			if(newFontSize >= 24) {
 				clearInterval(el.increaseInterval);
 				el.style.fontSize = "24px";
@@ -30,7 +30,7 @@ for(i = 0; i < liList.length; i++) {
 				el.style.fontSize = newFontSize + "px";
 			}
 		}, 50);
-	}
+	};
 
 	a.onmouseleave = (e) => {
 		var el = e.currentTarget;
@@ -39,7 +39,7 @@ for(i = 0; i < liList.length; i++) {
 		}
 		e.currentTarget.decreaseInterval = setInterval(() => {
 			const fontSize = parseInt(el.style.fontSize, 10);
-			const newFontSize = fontSize - (28 - fontSize) / 4;
+			const newFontSize = fontSize - getFontSizeChange(fontSize);
 			if(newFontSize <= 16) {
 				clearInterval(el.decreaseInterval);
 				el.style.fontSize = "16px";
@@ -48,5 +48,9 @@ for(i = 0; i < liList.length; i++) {
 				el.style.fontSize = newFontSize + "px";
 			}
 		}, 50);
-	}
+	};
+}
+
+function getFontSizeChange(oldFontSize) {
+	return (28 - oldFontSize) / 3;
 }

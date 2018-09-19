@@ -44,15 +44,18 @@ ul {
 }
 
 li {
-    margin: 8px 0;
     font-size: 16px;
-    height: 24px;
+    height: 28px;
+    display: flex;
+}
+
+li > a {
+    align-self: center;
 }
 
 .page > a {
     color: #00A8E8;
     text-decoration: none;
-	padding: 8px;
 }
 
 .header {
