@@ -4,6 +4,7 @@ body {
     background-color: #003459;
 
 }
+
 #headerHolder {
     height: 100px;
     background-color: #00171F;
@@ -49,16 +50,13 @@ li {
     display: flex;
 }
 
-li > a {
+.reposList_repo {
     align-self: center;
-}
-
-.page > a {
     color: #00A8E8;
     text-decoration: none;
 }
 
-.header {
+.reposList_header {
     color: #FFFFFF;
     margin-bottom: 8px;
 }
